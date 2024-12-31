@@ -1,0 +1,279 @@
+{
+  "preset_info": {
+    "archive": null,
+    "author": "Nal",
+    "description": "",
+    "email": "",
+    "features": "",
+    "pflags": 0,
+    "height": 158,
+    "locked": false,
+    "release": 377435216,
+    "title": "BlueProtocolDayNight-RegnasStandardTime",
+    "version": 13,
+    "width": 181,
+    "xscreens": 0,
+    "yscreens": 0
+  },
+  "preset_root": {
+    "internal_events": [
+      {
+        "action": "KUSTOM_ACTION",
+        "kustom_action": "ADVANCED_EDITOR"
+      }
+    ],
+    "internal_type": "RootLayerModule",
+    "globals_list": {
+      "c01": {
+        "index": 2,
+        "type": "COLOR",
+        "title": "c01",
+        "value": "#FFFFFFFF"
+      },
+      "c02": {
+        "index": 3,
+        "type": "COLOR",
+        "title": "c02",
+        "value": "#41000000"
+      },
+      "isday": {
+        "index": 6,
+        "type": "TEXT",
+        "title": "isday",
+        "value": "$if(mu(floor, gv(elapsed)/25)%2 = 0, 1, 0)$",
+        "toggles": 10,
+        "global_formula": "$if(mu(floor, gv(elapsed)/25)%2 = 0, 1, 0)$"
+      },
+      "size": {
+        "index": 13,
+        "type": "TEXT",
+        "title": "size",
+        "value": "$mu(min, si(rwidth), si(rheight))$",
+        "toggles": 10,
+        "global_formula": "$mu(min, si(rwidth), si(rheight))$"
+      },
+      "size1": {
+        "index": 14,
+        "type": "TEXT",
+        "title": "size1",
+        "value": "$gv(size)*0.9$",
+        "toggles": 10,
+        "global_formula": "$gv(size)*0.9$"
+      },
+      "size2": {
+        "index": 15,
+        "type": "TEXT",
+        "title": "size2",
+        "value": "$gv(size)*0.825$",
+        "toggles": 10,
+        "global_formula": "$gv(size)*0.825$"
+      },
+      "elapsed": {
+        "index": 4,
+        "type": "TEXT",
+        "title": "elapsed",
+        "global_formula": "$(dp(0) - dp(gv(base), auto)) / 60$",
+        "value": "$(dp(0) - dp(\"2024-12-26T21:02:00+09:00\", auto)) / 60$",
+        "toggles": 10
+      },
+      "time": {
+        "index": 5,
+        "type": "TEXT",
+        "title": "time",
+        "value": "$(gv(elapsed)%25)/25$",
+        "toggles": 10,
+        "global_formula": "$(gv(elapsed)%25)/25$"
+      },
+      "base": {
+        "index": 1,
+        "type": "TEXT",
+        "title": "base",
+        "value": "2024-12-28T08:02:00+09:00"
+      },
+      "dummy": {
+        "index": 16,
+        "type": "NUMBER",
+        "title": "dummy",
+        "description": "常時更新用ダミー",
+        "min": 0,
+        "max": 60,
+        "toggles": 10,
+        "global_formula": "$df(s)*0$"
+      }
+    },
+    "config_scale_value": 143.33163,
+    "viewgroup_items": [
+      {
+        "internal_type": "ShapeModule",
+        "internal_title": "背景",
+        "internal_toggles": {
+          "paint_color": 100,
+          "shape_width": 10
+        },
+        "internal_formulas": {
+          "shape_width": "$gv(size)$"
+        },
+        "internal_globals": {
+          "paint_color": "c02"
+        },
+        "shape_type": "CIRCLE",
+        "shape_width": 200.0,
+        "paint_color": "#41000000"
+      },
+      {
+        "internal_type": "OverlapLayerModule",
+        "internal_title": "night",
+        "internal_toggles": {
+          "config_visible": 10
+        },
+        "internal_formulas": {
+          "config_visible": "$if(gv(isday)+gv(dummy)=1, NEVER, ALWAYS)$"
+        },
+        "viewgroup_items": [
+          {
+            "internal_type": "ShapeModule",
+            "internal_toggles": {
+              "fx_gradient_offset": 10,
+              "paint_color": 100,
+              "shape_width": 10
+            },
+            "internal_formulas": {
+              "fx_gradient_offset": "$gv(time) *100 + gv(dummy)$",
+              "shape_width": "$gv(size1)$"
+            },
+            "shape_type": "CIRCLE",
+            "shape_width": 180.0,
+            "fx_gradient": "SWEEP",
+            "fx_gradient_color": "#00000000",
+            "fx_gradient_width": 1,
+            "fx_gradient_offset": 21,
+            "internal_title": "メーター",
+            "internal_globals": {
+              "paint_color": "c01"
+            },
+            "shape_rotate_mode": "DEG180"
+          },
+          {
+            "internal_type": "ShapeModule",
+            "shape_type": "CIRCLE",
+            "shape_width": 165.0,
+            "paint_mode": "CLEAR",
+            "internal_title": "クリア",
+            "internal_toggles": {
+              "shape_width": 10
+            },
+            "internal_formulas": {
+              "shape_width": "$gv(size2)$"
+            }
+          },
+          {
+            "internal_type": "ShapeModule",
+            "internal_title": "内側",
+            "internal_toggles": {
+              "paint_color": 100,
+              "shape_width": 10
+            },
+            "internal_formulas": {
+              "shape_width": "$gv(size2)$"
+            },
+            "internal_globals": {
+              "paint_color": "c02"
+            },
+            "shape_type": "CIRCLE",
+            "shape_width": 165.0,
+            "paint_color": "#41000000"
+          },
+          {
+            "internal_type": "BitmapModule",
+            "internal_title": "月",
+            "internal_toggles": {
+              "bitmap_width": 10
+            },
+            "internal_formulas": {
+              "bitmap_width": "$gv(size1)$"
+            },
+            "bitmap_bitmap": "kfile://org.kustom.provider/bitmaps/IMG9c86f6c2fd4bd716a94c623606db6924",
+            "bitmap_width": 180.0
+          }
+        ]
+      },
+      {
+        "internal_type": "OverlapLayerModule",
+        "internal_title": "day",
+        "internal_toggles": {
+          "config_visible": 10
+        },
+        "internal_formulas": {
+          "config_visible": "$if(gv(isday)+gv(dummy)=0, NEVER, ALWAYS)$"
+        },
+        "viewgroup_items": [
+          {
+            "internal_type": "ShapeModule",
+            "internal_toggles": {
+              "fx_gradient_offset": 10,
+              "paint_color": 100,
+              "shape_width": 10
+            },
+            "internal_formulas": {
+              "fx_gradient_offset": "$gv(time) * 100 + gv(dummy)$",
+              "shape_width": "$gv(size1)$"
+            },
+            "shape_type": "CIRCLE",
+            "shape_width": 180.0,
+            "fx_gradient": "SWEEP",
+            "fx_gradient_color": "#00000000",
+            "fx_gradient_width": 1,
+            "fx_gradient_offset": 21,
+            "internal_globals": {
+              "paint_color": "c01"
+            },
+            "internal_title": "メーター",
+            "shape_rotate_mode": "DEG180"
+          },
+          {
+            "internal_type": "ShapeModule",
+            "shape_type": "CIRCLE",
+            "shape_width": 165.0,
+            "paint_mode": "CLEAR",
+            "internal_title": "クリア",
+            "internal_toggles": {
+              "shape_width": 10
+            },
+            "internal_formulas": {
+              "shape_width": "$gv(size2)$"
+            }
+          },
+          {
+            "internal_type": "ShapeModule",
+            "internal_toggles": {
+              "paint_color": 100,
+              "shape_width": 10
+            },
+            "internal_globals": {
+              "paint_color": "c02"
+            },
+            "shape_type": "CIRCLE",
+            "shape_width": 165.0,
+            "paint_color": "#41000000",
+            "internal_title": "内側",
+            "internal_formulas": {
+              "shape_width": "$gv(size2)$"
+            }
+          },
+          {
+            "internal_type": "BitmapModule",
+            "bitmap_bitmap": "kfile://org.kustom.provider/bitmaps/IMGa1bb9d4fe3bc1b90866df64e2e431f43",
+            "bitmap_width": 180.0,
+            "internal_title": "太陽",
+            "internal_toggles": {
+              "bitmap_width": 10
+            },
+            "internal_formulas": {
+              "bitmap_width": "$gv(size1)$"
+            }
+          }
+        ]
+      }
+    ]
+  }
+}
